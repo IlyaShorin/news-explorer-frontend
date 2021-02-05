@@ -1,0 +1,47 @@
+.footer {
+  height: 80px;
+  width: 100%;
+}
+.footer__copyright {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #b6bcbf;
+}
+li > a {
+  text-decoration: none;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+}
+.footer__lists {
+  display: flex;
+  justify-content: space-between;
+}
+.footer__links {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+.links__praktikum {
+  margin: 0 0 0 25px;
+}
+.footer__social {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+}
+.social__fb {
+  margin: 0 0 0 25px;
+}
