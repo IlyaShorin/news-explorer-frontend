@@ -6,6 +6,8 @@ import SearchForm from '../searchform/SearchForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import SigninPopup from '../signinpopup/SigninPopup';
 import SignupPopup from '../signuppopup/SignupPopup';
+import ProtectedRoute from '../../hoc/ProtecdetRoute'
+import SavedNewsHeader from '../savednewsheader/SavedNewsHeader';
 import auth from '../../utils/auth';
 import { Switch, Route, useHistory } from 'react-router-dom';
 import './App.css';
@@ -52,9 +54,19 @@ function App() {
   return (
     <div className='app'>
       <CurrentUserContext.Provider value={currentUser}>
+        <Switch>
+          <Route path='/'>
         <Header onAuthtorizeForm={handleSigninPopupOpen} />
         <SearchForm />
         <About></About>
+        </Route>
+        
+        
+        <Route path='saved-news'>
+          <Header/>
+          <SavedNewsHeader/>
+        </Route>
+        </Switch>
         <Footer />
         <SigninPopup
           isOpen={isSigninPopupOpened}
