@@ -1,20 +1,23 @@
-import React from 'react';
-import './Header.css';
+import React from "react";
+import "./Header.css";
 
 const Header = (props) => {
+  let theme = props.themeDark ? "_theme_dark" : "_theme_light";
   return (
-    <header className='header'>
-      <div className='header__container'>
-        <div className='title__container'>
-          <div className={props.classes ? 'header__title black' :'header__title'}>NewsExplorer</div>
+    <header className={`header header${theme}`}>
+      <div className="header__container">
+        <div className="title__container">
+          <div className={`header__title header__title${theme}`}>
+            NewsExplorer
+          </div>
         </div>
         <div>
-          <button className='button__main'>
-            <a href='/' className={props.classes ? 'header__link black' :'header__link'}>
+          <button className={`button__main button__main${theme}`}>
+            <a href="/" className={`header__link header__link${theme}`}>
               Главная
             </a>
           </button>
-          <button className='button__signin' onClick={props.onAuthtorizeForm}>
+          <button className="button__signin" onClick={props.onAuthtorizeForm}>
             Авторизоваться
           </button>
         </div>

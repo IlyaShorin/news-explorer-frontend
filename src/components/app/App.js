@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
-import About from '../about/About';
-import SearchForm from '../searchform/SearchForm';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import SigninPopup from '../signinpopup/SigninPopup';
-import SignupPopup from '../signuppopup/SignupPopup';
-import ProtectedRoute from '../../hoc/ProtecdetRoute'
-import SavedNews from '../savednews/SavedNews'
-import auth from '../../utils/auth';
-import { Switch, Route, useHistory } from 'react-router-dom';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
+import About from "../about/About";
+import SearchForm from "../searchform/SearchForm";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import SigninPopup from "../signinpopup/SigninPopup";
+import SignupPopup from "../signuppopup/SignupPopup";
+import ProtectedRoute from "../../hoc/ProtecdetRoute";
+import SavedNews from "../savednews/SavedNews";
+import auth from "../../utils/auth";
+import { Switch, Route, useHistory } from "react-router-dom";
+import "./App.css";
 
 function App() {
-  
   const [currentUser, setCurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSigninPopupOpened, setIsSigninPopupOpened] = useState(false);
@@ -53,18 +52,21 @@ function App() {
       });
   }
   return (
-    <div className='app'>
+    <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
-          <Route exact path='/'>
-        <Header onAuthtorizeForm={handleSigninPopupOpen} />
-        <SearchForm />
-        <About></About>
-        </Route>
-        <Route path='/saved-news'>
-          <Header classes ={true}/>
-          <SavedNews/>
-        </Route>
+          <Route exact path="/">
+            <Header
+              onAuthtorizeForm={handleSigninPopupOpen}
+              themeDark={false}
+            />
+            <SearchForm />
+            <About></About>
+          </Route>
+          <Route path="/saved-news">
+            <Header themeDark={true} />
+            <SavedNews />
+          </Route>
         </Switch>
         <Footer />
         <SigninPopup

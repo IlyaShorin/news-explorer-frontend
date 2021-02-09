@@ -1,4 +1,8 @@
-.saved-news{
-    width: 100%;
-
+.saved-news {
+  width: 100%;
+}
+.news {
+  color: #1a1b22;
+  background-color: #f5f6f7;
+  padding-bottom: 80px;
 }
