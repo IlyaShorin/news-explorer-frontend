@@ -1,0 +1,12 @@
+.news__item{
+    width: 400px;
+    height: 576px;
+}
+.news__image{
+    height: 272px;
+}
+.news__delete-button{
+    background-image: url('../../images/delete_icon.svg');
+    height: 50px;
+    background-size: contain;
+}
