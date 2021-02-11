@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import PopupWithForm from '../popupwithform/PopupWithForm';
 import './SigninPopup.css';
-import { Link } from 'react-router-dom';
+import Validation from '../validation/Validation';
 
 const SigninPopup = (props) => {
   const [input, setInput] = useState({ email: '', password: '' });
+  const [isValid, setIsValid] = useState(false);
 
   const handleInputChange = (e) => {
     setInput({
@@ -34,7 +35,7 @@ const SigninPopup = (props) => {
           type='text'
           name='email'
           className='popup__input popup__input-profile-name'
-          id='popup__input-profile-name'
+          id='popup__input-profile-email'
           required
           minLength='2'
           maxLength='30'
@@ -42,21 +43,21 @@ const SigninPopup = (props) => {
           autoFocus
           onChange={handleInputChange}
         />
-        <span className='popup__input_type_error' id='popup__input-profile-name-error' />
+        <span className='popup__input_type_error' id='popup__input-error' />
         <p className='popup-input__title'>Пароль</p>
         <input
           value={input.about}
           type='password'
           name='password'
           className='popup__input popup__input-title'
-          id='popup__input-title'
+          id='popup__input-password'
           required
           minLength='2'
           maxLength='30'
           placeholder='Введите пароль'
           onChange={handleInputChange}
         />
-        <span className='popup__input_type_error' id='popup__input-title-error' />
+        <span className='popup__input_type_error' id='popup__input-error' />
       </PopupWithForm>
     </>
   );
