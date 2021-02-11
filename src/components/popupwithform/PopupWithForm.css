@@ -77,7 +77,11 @@
   background: #347eff;
   box-shadow: 0px 5px 15px rgba(14, 26, 57, 0.2);
 }
-
+.popup__button-save:disabled {
+  background-color: #e6e8eb;
+  cursor: default;
+  box-shadow: none;
+}
 .popup__button-save_disabled {
   background: #e5e5e5;
   border-radius: 2px;

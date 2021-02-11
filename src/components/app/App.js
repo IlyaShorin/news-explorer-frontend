@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import About from '../about/About';
@@ -6,10 +6,9 @@ import SearchForm from '../searchform/SearchForm';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import SigninPopup from '../signinpopup/SigninPopup';
 import SignupPopup from '../signuppopup/SignupPopup';
-import ProtectedRoute from '../../hoc/ProtecdetRoute';
 import SavedNews from '../savednews/SavedNews';
 import auth from '../../utils/auth';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -18,7 +17,7 @@ function App() {
   const [isSigninPopupOpened, setIsSigninPopupOpened] = useState(false);
   const [isSignupPopupOpened, setIsSignupPopupOpened] = useState(false);
   const [isAuthSuccess, setIsAuthSuccess] = useState(false);
-  let history = useHistory();
+
   function handleSigninPopupOpen() {
     setIsSigninPopupOpened(!isSigninPopupOpened);
   }

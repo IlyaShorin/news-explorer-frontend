@@ -25,7 +25,11 @@ const PopupWithForm = (props) => {
         >
           <h2 className={'popup__heading'}>{props.title}</h2>
           {props.children}
-          <button type='submit' className={`popup__button-save popup__button-save-${props.name}`}>
+          <button
+            type='submit'
+            className={`popup__button-save popup__button-save-${props.name}`}
+            disabled={props.disabled}
+          >
             {props.button}
           </button>
           <div className='popup-link__container'>

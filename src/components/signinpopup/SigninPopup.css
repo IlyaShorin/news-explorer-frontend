@@ -14,6 +14,19 @@
   font-size: 14px;
   line-height: 26px;
   color: black;
-  margin: 0 0 29px 0;
   padding: 0;
+  margin: 0;
+  width: 100%;
+}
+.popup__input-container {
+  margin: 5px 0 15px;
+}
+.popup__input_type_error {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+  margin: 0;
 }
