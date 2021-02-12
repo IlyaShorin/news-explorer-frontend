@@ -11,7 +11,7 @@ const SearchForm = (props) => {
         </h2>
       </div>
       <form className='search-form__form'>
-        <input type='text' placeholder='Введите тему новости' className='search-form__input' />
+        <input type='text' placeholder='Введите тему новости' className='search-form__input' required />
         <button className='search-form__button' type='submit'>
           Искать
         </button>

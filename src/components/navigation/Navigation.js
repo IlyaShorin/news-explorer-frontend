@@ -6,6 +6,7 @@ import logoutImgWhite from '../../images/logout_white.svg';
 
 const Navigation = (props) => {
   let theme = props.themeDark ? '_theme_dark' : '_theme_light';
+
   return (
     <nav className={`navigation navigation${theme}`}>
       <ul className={`navigation__list`}>

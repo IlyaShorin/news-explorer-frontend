@@ -27,6 +27,10 @@
   background-color: initial;
   z-index: 0;
 }
+.navigation__mobile {
+  opacity: 0;
+  width: 0;
+}
 .navigation,
 .navigation__list {
   gap: 16px;
@@ -93,4 +97,19 @@
 }
 .navigation__link_theme_light_active {
   border-bottom: 3px solid white;
+}
+@media screen and (max-width: 540px) {
+  .navigation__link {
+    font-size: 13px;
+    line-height: 13px;
+  }
+  .navigation,
+  .navigation__list {
+    gap: 8px;
+  }
+  .navigation__list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 }

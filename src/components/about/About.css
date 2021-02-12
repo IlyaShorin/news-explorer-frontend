@@ -24,5 +24,17 @@
   line-height: 24px;
 }
 .about__container {
-  width: 600px;
+  max-width: 600px;
+}
+@media screen and (max-width: 730px) {
+  .about__img {
+    width: 232px;
+    margin: 0 32px 0 40px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .about {
+    flex-direction: column;
+    align-items: center;
+  }
 }

@@ -45,3 +45,14 @@ li > a {
 .social__fb {
   margin: 0 0 0 25px;
 }
+@media screen and (max-width: 500px) {
+  .footer__container {
+    flex-direction: column-reverse;
+  }
+  .footer__links {
+    flex-direction: column;
+  }
+  .links__praktikum {
+    margin: 10px 0 0;
+  }
+}

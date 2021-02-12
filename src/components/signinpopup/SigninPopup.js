@@ -62,10 +62,10 @@ const SigninPopup = (props) => {
         <div className='popup__input-container'>
           <input
             value={input.name}
-            type='text'
+            type='email'
             name='email'
             className='popup__input popup__input-email'
-            id='popup__input-profile-email'
+            id='popup__input-signin-profile-email'
             required
             placeholder='Введите почту'
             autoFocus
@@ -80,7 +80,7 @@ const SigninPopup = (props) => {
             type='password'
             name='password'
             className='popup__input popup__input-password'
-            id='popup__input-password'
+            id='popup__input-signin-password'
             required
             minLength='6'
             maxLength='30'

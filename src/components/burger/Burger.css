@@ -1,0 +1,16 @@
+.burger__button {
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: 0;
+}
+.burger__menu {
+  background-color: black;
+  width: 100vw;
+  height: 35vh;
+  z-index: 1;
+  position: absolute;
+}
+.burger__cross {
+  z-index: 2;
+}

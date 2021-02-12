@@ -4,6 +4,9 @@
   position: absolute;
   width: 100%;
 }
+.navigation__mobile {
+  opacity: 0;
+}
 .header_theme_light {
   box-shadow: inset 0px -1px 0px rgba(255, 255, 255, 0.2);
 }
@@ -32,4 +35,14 @@
 }
 .title__container {
   margin: 11px 0 0;
+}
+@media screen and (max-width: 730px) {
+  .header__container {
+    padding: 0 25px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .header__container {
+    padding: 0;
+  }
 }

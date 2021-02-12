@@ -37,7 +37,7 @@ const SignFormPopup = (props) => {
             type='email'
             name='email'
             className='popup__input popup__input-email'
-            id='popup__input-profile-email'
+            id='popup__input-signup-profile-email'
             required
             minLength='2'
             maxLength='30'
