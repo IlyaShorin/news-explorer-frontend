@@ -100,22 +100,29 @@
 }
 @media screen and (max-width: 540px) {
   .navigation__link {
-    font-size: 13px;
-    line-height: 13px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 40px;
   }
-  .navigation,
-  .navigation__list {
-    gap: 8px;
-  }
+
   .navigation__list {
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
   .navigation__button {
-    font-size: 13px;
-    line-height: 13px;
-    margin: 15px 0 0;
-    width: auto;
+    width: 175px;
+    margin-top: 25px;
   }
+}
+.navigation__burgered {
+  flex-direction: column;
+  height: auto;
+  justify-content: space-between;
+  width: 100vw;
+  border-top: 0.5px solid gray;
+  align-items: center;
+}
+.navigation__link_burgered {
+  margin-top: 25px;
 }

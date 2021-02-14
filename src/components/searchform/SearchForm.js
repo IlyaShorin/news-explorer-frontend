@@ -10,7 +10,7 @@ const SearchForm = (props) => {
           Находите самые свежие статьи на любую тему и сохраняйте в своём личном кабинете.
         </h2>
       </div>
-      <form className='search-form__form'>
+      <form className='search-form__form' onSubmit={props.onSubmit}>
         <input type='text' placeholder='Введите тему новости' className='search-form__input' required />
         <button className='search-form__button' type='submit'>
           Искать

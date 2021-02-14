@@ -8,12 +8,18 @@ const Navigation = (props) => {
   let theme = props.themeDark ? '_theme_dark' : '_theme_light';
 
   return (
-    <nav className={`navigation navigation${theme}`}>
+    <nav
+      className={!props.burger ? `navigation navigation${theme}` : `navigation navigation${theme} navigation__burgered`}
+    >
       <ul className={`navigation__list`}>
         <li className={`navigation__item`}>
           <NavLink
             to='/'
-            className={`navigation__link navigation__link${theme}`}
+            className={
+              !props.burger
+                ? `navigation__link navigation__link${theme}`
+                : `navigation__link navigation__link${theme} navigation__link_burgered`
+            }
             activeClassName={`navigation__link${theme}_active`}
             exact={true}
           >

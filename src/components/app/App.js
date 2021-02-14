@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
-import About from '../about/About';
-import SearchForm from '../searchform/SearchForm';
+import Main from '../main/Main';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import SigninPopup from '../signinpopup/SigninPopup';
 import SignupPopup from '../signuppopup/SignupPopup';
@@ -64,8 +63,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               onLogout={handleLogout}
             />
-            <SearchForm />
-            <About></About>
+            <Main />
           </Route>
           <Route path='/saved-news'>
             <Header themeDark={true} isLoggedIn={isLoggedIn} onLogout={handleLogout} />

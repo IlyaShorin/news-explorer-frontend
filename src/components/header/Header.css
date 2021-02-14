@@ -46,3 +46,30 @@
     padding: 0;
   }
 }
+.header__burger-container {
+  padding: 15px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #1a1b22;
+  border-radius: 16px;
+  height: 40vh;
+}
+.header__title_burgered {
+  position: absolute;
+  top: 25px;
+  left: 15px;
+  max-width: 100%;
+}
+.header_relative {
+  position: relative;
+  background-color: #1a1b22;
+}
+.burger__button {
+}
+.burger__navigation-container {
+}
+.burger__navigation-list {
+}
+.burger__navigation-item {
+}
