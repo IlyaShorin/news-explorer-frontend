@@ -46,6 +46,7 @@
     padding: 0;
   }
 }
+
 .header__burger-container {
   padding: 15px;
   flex-direction: column;
@@ -64,12 +65,4 @@
 .header_relative {
   position: relative;
   background-color: #1a1b22;
-}
-.burger__button {
-}
-.burger__navigation-container {
-}
-.burger__navigation-list {
-}
-.burger__navigation-item {
 }

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import Navigation from '../navigation/Navigation';
-import Burger from '../burger/Burger';
-import './Header.css';
+import React, { useState } from "react";
+import Navigation from "../navigation/Navigation";
+import Burger from "../burger/Burger";
+import "./Header.css";
 
 const Header = (props) => {
-  let theme = props.themeDark ? '_theme_dark' : '_theme_light';
+  let theme = props.themeDark ? "_theme_dark" : "_theme_light";
   let width = window.screen.width;
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   function menuHandler() {
@@ -12,10 +12,20 @@ const Header = (props) => {
   }
 
   return (
-    <header className={!isMenuOpen ? `header header${theme}` : 'header header_relative'}>
-      <div className={isMenuOpen ? 'header__container header__burger-container' : 'header__container'}>
+    <header
+      className={
+        !isMenuOpen ? `header header${theme}` : "header header_relative"
+      }
+    >
+      <div
+        className={
+          isMenuOpen
+            ? "header__container header__burger-container"
+            : "header__container"
+        }
+      >
         <a
-          href='/'
+          href="/"
           className={
             !isMenuOpen
               ? `header__title header__title${theme}`
@@ -24,23 +34,20 @@ const Header = (props) => {
         >
           NewsExplorer
         </a>
-        {width >= 540 ? (
-          <Navigation
-            themeDark={props.themeDark}
-            isLoggedIn={props.isLoggedIn}
-            onLogout={props.onLogout}
-            onAuthtorizeForm={props.onAuthtorizeForm}
-          />
-        ) : (
-          <Burger
-            onClick={menuHandler}
-            opened={isMenuOpen}
-            isLoggedIn={props.isLoggedIn}
-            onLogout={props.onLogout}
-            onAuthtorizeForm={props.onAuthtorizeForm}
-            themeDark={props.themeDark}
-          />
-        )}
+        <Navigation
+          themeDark={props.themeDark}
+          isLoggedIn={props.isLoggedIn}
+          onLogout={props.onLogout}
+          onAuthtorizeForm={props.onAuthtorizeForm}
+        />
+        <Burger
+          onClick={menuHandler}
+          opened={isMenuOpen}
+          isLoggedIn={props.isLoggedIn}
+          onLogout={props.onLogout}
+          onAuthtorizeForm={props.onAuthtorizeForm}
+          themeDark={props.themeDark}
+        />
       </div>
     </header>
   );
