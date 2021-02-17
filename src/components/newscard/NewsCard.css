@@ -1,0 +1,130 @@
+.news__item {
+  display: grid;
+  grid-template-rows: 196px auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 16px;
+  background-color: #fff;
+  transition: all 0.2s ease-out;
+}
+.news__image {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+  border-style: none;
+}
+.news__link {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-decoration: none;
+  color: inherit;
+}
+.news__date {
+  font-size: 18px;
+  font-family: "Source Sans Pro", "Arial", "Helvetica", sans-serif;
+  font-weight: 400;
+  color: #b6bcbf;
+}
+.news__title {
+  margin: 10px 0;
+  font-size: 22px;
+  font-family: "Roboto Slab";
+  font-weight: 400;
+  line-height: 26px;
+}
+.news__text {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1a1b22;
+}
+.news__media {
+  font-family: "Roboto Slab";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #b6bcbf;
+}
+.news__delete-button {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: url("../../images/delete_icon_transparent.svg") 50% no-repeat,
+    #fff;
+  border: 0;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+.news__delete-button:hover {
+  background-image: url("../../images/delete_icon.svg");
+}
+.news__save-button {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  background: url("../../images/save-button_transparent.svg") 50% no-repeat,
+    #fff;
+  border: 0;
+  transition: all 0.2s ease-out;
+  cursor: pointer;
+}
+.news__save-button:hover {
+  background-image: url("../../images/save-button_black.svg");
+}
+.news__theme-text {
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  margin: 0;
+  padding: 12px 11px;
+  max-width: 65%;
+  background-color: #fff;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: "Roboto";
+  font-weight: 500;
+  word-break: break-all;
+}
+.item__tooltip {
+  position: absolute;
+  top: 6px;
+  right: 70px;
+  padding: 0 16px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  font-size: 12px;
+  line-height: 14px;
+  font-family: "Roboto";
+  font-weight: bold;
+  color: #000;
+  background-color: #fff;
+  box-shadow: 0 10px 22px rgba(59, 74, 116, 0.2);
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.2s ease-out, opacity 0.2s ease-out;
+}
+.item__tooltip_visible {
+  visibility: visible;
+  opacity: 1;
+}

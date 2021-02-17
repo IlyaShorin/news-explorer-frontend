@@ -1,0 +1,27 @@
+@media screen and (min-width: 540px) {
+  .burger {
+    display: none;
+  }
+}
+.burger__button {
+  cursor: pointer;
+  outline: none;
+  background-color: transparent;
+  border: 0;
+}
+.burger__button-cross {
+  align-self: flex-end;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+.burger__menu {
+  background-color: black;
+  width: 100vw;
+  height: 35vh;
+  z-index: 1;
+  position: absolute;
+}
+.burger__cross {
+  z-index: 2;
+}

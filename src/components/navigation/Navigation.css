@@ -1,0 +1,132 @@
+.navigation__link {
+  text-decoration: none;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 580;
+  font-size: 18px;
+  line-height: 24px;
+  color: white;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.navigation__link_theme_dark {
+  color: black;
+}
+.navigation {
+  display: flex;
+  height: 100%;
+  position: static;
+  align-items: stretch;
+  width: auto;
+  padding: 0;
+  margin: 0;
+  transform: none;
+  opacity: 1;
+  background-color: initial;
+  z-index: 0;
+}
+.navigation__mobile {
+  opacity: 0;
+  width: 0;
+}
+.navigation,
+.navigation__list {
+  gap: 16px;
+}
+.navigation__list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+.navigation__item {
+  display: flex;
+  align-items: center;
+  font-family: "Roboto";
+  font-size: 18px;
+  font-weight: 500;
+}
+.navigation_title_theme_dark {
+  color: black;
+}
+
+.navigation__button {
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  border-radius: 100px;
+  background: none;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 580;
+  font-size: 18px;
+  line-height: 24px;
+  height: 48px;
+  margin: 15px 0 0 32px;
+  width: 176px;
+}
+.navigation__button:focus {
+  outline: none;
+}
+.navigation__button_logged-in {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 580;
+  font-size: 18px;
+  line-height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 86px;
+  height: 38px;
+  margin-top: 21px;
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+}
+.navigation__button_theme_dark {
+  color: black;
+  border: 1px solid #1a1b22;
+}
+.navigation__button_theme_light {
+  color: white;
+}
+.navigation__link_theme_dark_active {
+  border-bottom: 3px solid black;
+}
+.navigation__link_theme_light_active {
+  border-bottom: 3px solid white;
+}
+@media screen and (max-width: 540px) {
+  .navigation__link {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 40px;
+  }
+
+  .navigation__list {
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  .navigation__button {
+    width: 175px;
+    margin-top: 25px;
+  }
+  .navigation {
+    display: none;
+  }
+}
+.navigation__burgered {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  justify-content: space-between;
+  width: 100vw;
+  border-top: 0.5px solid gray;
+  align-items: center;
+}
+.navigation__link_burgered {
+  margin-top: 25px;
+}
