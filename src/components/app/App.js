@@ -6,6 +6,7 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import SigninPopup from '../signinpopup/SigninPopup';
 import SignupPopup from '../signuppopup/SignupPopup';
 import SavedNews from '../savednews/SavedNews';
+import newsApi from '../../utils/NewsApi';
 import auth from '../../utils/auth';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
@@ -16,6 +17,8 @@ function App() {
   const [isSigninPopupOpened, setIsSigninPopupOpened] = useState(false);
   const [isSignupPopupOpened, setIsSignupPopupOpened] = useState(false);
   const [isAuthSuccess, setIsAuthSuccess] = useState(false);
+  const [news, setNews] = useState([]);
+  const [showNews, setShowNews] = useState(false);
 
   function handleSigninPopupOpen() {
     setIsSigninPopupOpened(!isSigninPopupOpened);
@@ -52,6 +55,20 @@ function App() {
   function handleLogout() {
     setIsLoggedIn(false);
   }
+  function handleSearchNewsSubmit(theme) {
+    newsApi
+      .findNews(theme)
+      .then((data) => {
+        setNews(data.articles);
+        console.log(data.articles);
+      })
+      .then((data) => {
+        setShowNews(!showNews);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
   return (
     <div className='app'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -63,7 +80,7 @@ function App() {
               isLoggedIn={isLoggedIn}
               onLogout={handleLogout}
             />
-            <Main />
+            <Main onSearchNews={handleSearchNewsSubmit} showNews={showNews} news={news} />
           </Route>
           <Route path='/saved-news'>
             <Header themeDark={true} isLoggedIn={isLoggedIn} onLogout={handleLogout} />

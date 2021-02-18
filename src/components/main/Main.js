@@ -6,20 +6,15 @@ import SearchForm from '../searchform/SearchForm';
 import './Main.css';
 
 const Main = (props) => {
-  const [isNewsListShowed, setIsNewsListShowed] = useState(false);
-  const handleShow = (e) => {
-    e.preventDefault();
-    setIsNewsListShowed(!isNewsListShowed);
-  };
   return (
     <>
-      <SearchForm onSubmit={handleShow} newsList={isNewsListShowed} />
-      <main className={isNewsListShowed ? `main main_visible` : `main`}>
+      <SearchForm onSubmit={props.onSearchNews} />
+      <main className={props.showNews ? `main main_visible` : `main`}>
         <div className='main__container'>
           <div className='main__title-container'>
             <p className='main__title'>Результаты поиска</p>
           </div>
-          <NewsCardList />
+          <NewsCardList news={props.news} />
         </div>
         <div className='main__button-container'>
           <button className='main__button'>Показать еще</button>
