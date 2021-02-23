@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../header/Header';
 import Footer from '../footer/Footer';
 import Main from '../main/Main';
@@ -7,18 +7,37 @@ import SigninPopup from '../signinpopup/SigninPopup';
 import SignupPopup from '../signuppopup/SignupPopup';
 import SavedNews from '../savednews/SavedNews';
 import newsApi from '../../utils/NewsApi';
-import auth from '../../utils/auth';
+import api from '../../utils/MainApi';
 import { Switch, Route } from 'react-router-dom';
+import TooltipPopup from '../tooltippopup/TooltipPopup';
 import './App.css';
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [searchTheme, setSearchTheme] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSigninPopupOpened, setIsSigninPopupOpened] = useState(false);
   const [isSignupPopupOpened, setIsSignupPopupOpened] = useState(false);
-  const [isAuthSuccess, setIsAuthSuccess] = useState(false);
+  const [isTooltipOpened, setIsTooltipOpened] = useState(false);
   const [news, setNews] = useState([]);
   const [showNews, setShowNews] = useState(false);
+  const [savedNews, setSavedNews] = useState([]);
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    handleTokenCheck();
+  }, [isLoggedIn]);
+
+  function handleTokenCheck() {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      api.userName(jwt).then((res) => {
+        setUserName(res.name);
+        setIsLoggedIn(true);
+        setCurrentUser(res);
+      });
+    }
+  }
 
   function handleSigninPopupOpen() {
     setIsSigninPopupOpened(!isSigninPopupOpened);
@@ -26,49 +45,80 @@ function App() {
   function handleSignupPopupOpen() {
     setIsSignupPopupOpened(!isSignupPopupOpened);
   }
+  function handleTooltipPopupOpen() {
+    closePopup();
+    setIsTooltipOpened(true);
+  }
   function closePopup() {
     setIsSigninPopupOpened(false);
     setIsSignupPopupOpened(false);
+    setIsTooltipOpened(false);
   }
   function handleSubmitRegister(obj) {
-    auth.newRegister(obj).then((data) => {
-      if (data) {
-        setIsAuthSuccess(true);
-      } else {
-        setIsAuthSuccess(false);
-      }
-    });
-  }
-  function handleSubmitLogin(obj) {
-    auth
-      .newLogin(obj)
+    api
+      .newRegister(obj)
       .then((data) => {
-        if (data.token) {
-          setIsAuthSuccess(true);
-          setIsLoggedIn(true);
-        }
-      })
-      .catch((err) => {
-        setIsAuthSuccess(false);
-      });
-  }
-  function handleLogout() {
-    setIsLoggedIn(false);
-  }
-  function handleSearchNewsSubmit(theme) {
-    newsApi
-      .findNews(theme)
-      .then((data) => {
-        setNews(data.articles);
-        console.log(data.articles);
-      })
-      .then((data) => {
-        setShowNews(!showNews);
+        handleTooltipPopupOpen();
       })
       .catch((err) => {
         console.log(err);
       });
   }
+  function handleSubmitLogin(obj) {
+    api
+      .newLogin(obj)
+      .then((data) => {
+        if (data.token) {
+          setIsLoggedIn(true);
+          closePopup();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function handleLogout() {
+    setIsLoggedIn(false);
+    localStorage.removeItem('jwt');
+    setUserName('');
+  }
+  function handleSearchNewsSubmit(theme) {
+    setSearchTheme(theme);
+    newsApi
+      .findNews(theme)
+      .then((data) => {
+        data.articles.forEach((el) => (el.theme = theme));
+        setNews(data.articles.slice(1, 4));
+      })
+      .then((data) => {
+        setShowNews(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+  function showMore() {
+    newsApi.findNews(searchTheme).then((data) => {
+      let newsCount = news.length < 99 ? news.length + 4 : news.length + 1;
+
+      setNews(data.articles.slice(1, newsCount));
+    });
+  }
+  function saveNews(newsForSave) {
+    api.saveNews(newsForSave).then((res) => console.log(res));
+  }
+  function deleteFromSavedNews(newsForDelete) {
+    console.log('1');
+    api.deleteArticle(newsForDelete).then((res) => {
+      console.log(res);
+    });
+  }
+  function handleShowSavedNews() {
+    api.getSavedNews().then((res) => {
+      setSavedNews(res);
+    });
+  }
+
   return (
     <div className='app'>
       <CurrentUserContext.Provider value={currentUser}>
@@ -79,12 +129,27 @@ function App() {
               themeDark={false}
               isLoggedIn={isLoggedIn}
               onLogout={handleLogout}
+              userName={userName}
+              onRoute={handleShowSavedNews}
             />
-            <Main onSearchNews={handleSearchNewsSubmit} showNews={showNews} news={news} />
+            <Main
+              onSearchNews={handleSearchNewsSubmit}
+              showNews={showNews}
+              news={news}
+              onShowMore={showMore}
+              onSaveNews={saveNews}
+              authtorized={isLoggedIn}
+              onDeleteNews={deleteFromSavedNews}
+            />
           </Route>
           <Route path='/saved-news'>
-            <Header themeDark={true} isLoggedIn={isLoggedIn} onLogout={handleLogout} />
-            <SavedNews />
+            <Header themeDark={true} isLoggedIn={isLoggedIn} onLogout={handleLogout} userName={userName} />
+            <SavedNews
+              news={savedNews}
+              userName={userName}
+              onDeleteNews={deleteFromSavedNews}
+              authtorized={isLoggedIn}
+            />
           </Route>
         </Switch>
         <Footer />
@@ -100,6 +165,7 @@ function App() {
           openModal={handleSigninPopupOpen}
           onSubmit={handleSubmitRegister}
         />
+        <TooltipPopup isOpen={isTooltipOpened} onClose={closePopup} openModal={handleSigninPopupOpen} />
       </CurrentUserContext.Provider>
     </div>
   );

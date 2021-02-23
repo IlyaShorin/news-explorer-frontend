@@ -1,49 +1,35 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import PopupWithForm from '../popupwithform/PopupWithForm';
 import './SigninPopup.css';
 
 const SigninPopup = (props) => {
-  const [input, setInput] = useState({ email: '', password: '' });
+  const [inputValues, setInputValues] = useState({
+    email: { value: '', validationMessage: true },
+    password: { value: '', validationMessage: true },
+    isFormValid: false,
+  });
 
-  const firstRender = useRef(true);
-  const [isDisabled, setIsDisabled] = useState(true);
-  const [emailError, setEmailError] = useState(null);
-  const [passwordError, setPasswordError] = useState(null);
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    setIsDisabled(formValidation());
-  }, [input.email, input.password]);
-
-  const formValidation = () => {
-    if (input.email === '') {
-      setEmailError('Введите email');
-    } else if (!/\S+@\S+\.\S+/.test(input.email)) {
-      setEmailError('Введите корректный email');
-    } else if (/\S+@\S+\.\S+/.test(input.email)) {
-      setEmailError(null);
-    } else if (input.password === '') {
-      setPasswordError('Введите пароль');
-    } else if (input.password.length <= 6) {
-      setPasswordError('Пароль должен быть больше 6 символов');
-    } else if (input.password.length >= 6) {
-      setPasswordError(null);
-    } else {
-      return false;
-    }
-    return true;
-  };
   const handleInputChange = (e) => {
-    setInput({
-      ...input,
-      [e.target.name]: e.target.value,
+    setInputValues({
+      ...inputValues,
+      [e.target.name]: {
+        value: e.target.value,
+        validationMessage: e.target.validationMessage,
+        isValid: !e.target.validationMessage,
+      },
+      isFormValid:
+        !e.target.validationMessage &&
+        !Object.keys(inputValues).some((key) => {
+          if (key !== e.target.name && key !== 'isFormValid') {
+            return inputValues[key].validationMessage;
+          }
+          return false;
+        }),
     });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onSubmit({ email: input.email, password: input.password });
+    props.onSubmit({ email: inputValues.email.value, password: inputValues.password.value });
   };
   return (
     <>
@@ -56,12 +42,12 @@ const SigninPopup = (props) => {
         underButton='Зарегистрироваться'
         modal={props.openModal}
         onSubmit={handleSubmit}
-        disabled={isDisabled}
+        disabled={!inputValues.isFormValid}
       >
         <p className='popup-input__title'>Email</p>
         <div className='popup__input-container'>
           <input
-            value={input.name}
+            value={inputValues.email.value}
             type='email'
             name='email'
             className='popup__input popup__input-email'
@@ -71,12 +57,12 @@ const SigninPopup = (props) => {
             autoFocus
             onChange={handleInputChange}
           />
-          {emailError && <p className='popup__input_type_error'>{emailError}</p>}
+          <p className='popup__input_type_error'>{inputValues.email.validationMessage}</p>
         </div>
         <p className='popup-input__title'>Пароль</p>
         <div className='popup__input-container'>
           <input
-            value={input.about}
+            value={inputValues.password.value}
             type='password'
             name='password'
             className='popup__input popup__input-password'
@@ -87,7 +73,7 @@ const SigninPopup = (props) => {
             placeholder='Введите пароль'
             onChange={handleInputChange}
           />
-          {passwordError && <p className='popup__input_type_error'>{passwordError}</p>}
+          <p className='popup__input_type_error'>{inputValues.password.validationMessage}</p>
         </div>
       </PopupWithForm>
     </>

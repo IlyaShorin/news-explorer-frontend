@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import About from '../about/About';
 import NewsCardList from '../newscardlist/NewsCardList';
 import SearchForm from '../searchform/SearchForm';
@@ -14,11 +14,22 @@ const Main = (props) => {
           <div className='main__title-container'>
             <p className='main__title'>Результаты поиска</p>
           </div>
-          <NewsCardList news={props.news} />
+          <NewsCardList
+            news={props.news}
+            onSave={props.onSaveNews}
+            authtorized={props.authtorized}
+            onDeleteNews={props.onDeleteNews}
+          />
         </div>
-        <div className='main__button-container'>
-          <button className='main__button'>Показать еще</button>
-        </div>
+        {props.news.length === 99 ? (
+          ''
+        ) : (
+          <div className='main__button-container'>
+            <button className='main__button' onClick={props.onShowMore}>
+              Показать еще
+            </button>
+          </div>
+        )}
       </main>
       <About />
     </>

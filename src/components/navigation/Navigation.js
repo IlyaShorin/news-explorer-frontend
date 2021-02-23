@@ -32,6 +32,7 @@ const Navigation = (props) => {
               to='/saved-news'
               className={`navigation__link navigation__link${theme}`}
               activeClassName={`navigation__link${theme}_active`}
+              onClick={props.onRoute}
             >
               Сохранённые статьи
             </NavLink>
@@ -45,7 +46,7 @@ const Navigation = (props) => {
           className={`navigation__button navigation__button${theme} navigation__button_logged-in`}
           onClick={props.onLogout}
         >
-          Илья
+          {props.userName}
           {props.themeDark ? (
             <img src={logoutImgBlack} className='logout-button' alt='Выйти'></img>
           ) : (
