@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../header/Header';
-import Footer from '../footer/Footer';
-import Main from '../main/Main';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
-import SigninPopup from '../signinpopup/SigninPopup';
-import SignupPopup from '../signuppopup/SignupPopup';
-import SavedNews from '../savednews/SavedNews';
-import newsApi from '../../utils/NewsApi';
-import api from '../../utils/MainApi';
-import { Switch, Route } from 'react-router-dom';
-import TooltipPopup from '../tooltippopup/TooltipPopup';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Header from "../header/Header";
+import Footer from "../footer/Footer";
+import Main from "../main/Main";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import SigninPopup from "../signinpopup/SigninPopup";
+import SignupPopup from "../signuppopup/SignupPopup";
+import SavedNews from "../savednews/SavedNews";
+import newsApi from "../../utils/NewsApi";
+import api from "../../utils/MainApi";
+import { Switch, Route } from "react-router-dom";
+import TooltipPopup from "../tooltippopup/TooltipPopup";
+import "./App.css";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
-  const [searchTheme, setSearchTheme] = useState('');
+  const [searchTheme, setSearchTheme] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSigninPopupOpened, setIsSigninPopupOpened] = useState(false);
   const [isSignupPopupOpened, setIsSignupPopupOpened] = useState(false);
@@ -22,20 +22,33 @@ function App() {
   const [news, setNews] = useState([]);
   const [showNews, setShowNews] = useState(false);
   const [savedNews, setSavedNews] = useState([]);
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     handleTokenCheck();
   }, [isLoggedIn]);
 
   function handleTokenCheck() {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      api.userName(jwt).then((res) => {
-        setUserName(res.name);
-        setIsLoggedIn(true);
-        setCurrentUser(res);
-      });
+    if (localStorage.getItem("jwt")) {
+      const jwt = localStorage.getItem("jwt");
+      api
+        .userName(jwt)
+        .then((res) => {
+          setUserName(res.name);
+          setIsLoggedIn(true);
+          setCurrentUser(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      api
+        .getSavedNews()
+        .then((res) => {
+          setSavedNews(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
@@ -79,16 +92,21 @@ function App() {
   }
   function handleLogout() {
     setIsLoggedIn(false);
-    localStorage.removeItem('jwt');
-    setUserName('');
+    localStorage.removeItem("jwt");
+    setUserName("");
   }
   function handleSearchNewsSubmit(theme) {
     setSearchTheme(theme);
+
     newsApi
       .findNews(theme)
       .then((data) => {
-        data.articles.forEach((el) => (el.theme = theme));
+        data.articles.forEach((el) => {
+          el.theme = theme;
+          el.saved = false;
+        });
         setNews(data.articles.slice(1, 4));
+        console.log(news);
       })
       .then((data) => {
         setShowNews(true);
@@ -105,32 +123,29 @@ function App() {
     });
   }
   function saveNews(newsForSave) {
-    api.saveNews(newsForSave).then((res) => console.log(res));
-  }
-  function deleteFromSavedNews(newsForDelete) {
-    console.log('1');
-    api.deleteArticle(newsForDelete).then((res) => {
-      console.log(res);
+    api.saveNews(newsForSave).then((res) => {
+      setSavedNews({ ...savedNews, res });
     });
   }
-  function handleShowSavedNews() {
-    api.getSavedNews().then((res) => {
-      setSavedNews(res);
+  function deleteFromSavedNews(newsForDelete) {
+    savedNews.forEach((savedNews) => {
+      if (savedNews.link === newsForDelete.link) {
+        api.deleteArticle(savedNews._id).then((res) => {});
+      }
     });
   }
 
   return (
-    <div className='app'>
+    <div className="app">
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
-          <Route exact path='/'>
+          <Route exact path="/">
             <Header
               onAuthtorizeForm={handleSigninPopupOpen}
               themeDark={false}
               isLoggedIn={isLoggedIn}
               onLogout={handleLogout}
               userName={userName}
-              onRoute={handleShowSavedNews}
             />
             <Main
               onSearchNews={handleSearchNewsSubmit}
@@ -140,10 +155,16 @@ function App() {
               onSaveNews={saveNews}
               authtorized={isLoggedIn}
               onDeleteNews={deleteFromSavedNews}
+              savedNews={savedNews}
             />
           </Route>
-          <Route path='/saved-news'>
-            <Header themeDark={true} isLoggedIn={isLoggedIn} onLogout={handleLogout} userName={userName} />
+          <Route path="/saved-news">
+            <Header
+              themeDark={true}
+              isLoggedIn={isLoggedIn}
+              onLogout={handleLogout}
+              userName={userName}
+            />
             <SavedNews
               news={savedNews}
               userName={userName}
@@ -165,7 +186,11 @@ function App() {
           openModal={handleSigninPopupOpen}
           onSubmit={handleSubmitRegister}
         />
-        <TooltipPopup isOpen={isTooltipOpened} onClose={closePopup} openModal={handleSigninPopupOpen} />
+        <TooltipPopup
+          isOpen={isTooltipOpened}
+          onClose={closePopup}
+          openModal={handleSigninPopupOpen}
+        />
       </CurrentUserContext.Provider>
     </div>
   );

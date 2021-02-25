@@ -1,13 +1,13 @@
-import React from 'react';
-import NewsCardList from '../newscardlist/NewsCardList';
-import SavedNewsHeader from '../savednewsheader/SavedNewsHeader';
-import './SavedNews.css';
+import React from "react";
+import NewsCardList from "../newscardlist/NewsCardList";
+import SavedNewsHeader from "../savednewsheader/SavedNewsHeader";
+import "./SavedNews.css";
 
 const SavedNews = (props) => {
   return (
-    <div className='saved-news'>
+    <div className="saved-news">
       <SavedNewsHeader userName={props.userName} />
-      <div className='news'>
+      <div className="news">
         <NewsCardList
           news={props.news}
           saved={true}

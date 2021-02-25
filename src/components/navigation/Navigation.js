@@ -32,7 +32,6 @@ const Navigation = (props) => {
               to='/saved-news'
               className={`navigation__link navigation__link${theme}`}
               activeClassName={`navigation__link${theme}_active`}
-              onClick={props.onRoute}
             >
               Сохранённые статьи
             </NavLink>
