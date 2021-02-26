@@ -24,6 +24,7 @@ function App() {
   const [showNews, setShowNews] = useState(false);
   const [savedNews, setSavedNews] = useState([]);
   const [userName, setUserName] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     handleTokenCheck();
@@ -101,7 +102,8 @@ function App() {
   }
   function handleSearchNewsSubmit(theme) {
     setSearchTheme(theme);
-    newsApi
+    setIsLoading(true);
+    return newsApi
       .findNews(theme)
       .then((data) => {
         data.articles.forEach((el) => {
@@ -115,7 +117,8 @@ function App() {
         });
         setNews(data.articles.slice(1, 4));
       })
-      .then((data) => {
+      .finally(() => {
+        setIsLoading(false);
         setShowNews(true);
       })
       .catch((err) => {
@@ -123,7 +126,7 @@ function App() {
       });
   }
   function showMore() {
-    newsApi.findNews(searchTheme).then((data) => {
+    return newsApi.findNews(searchTheme).then((data) => {
       let newsCount = news.length < 99 ? news.length + 4 : news.length + 1;
       data.articles.forEach((el) => {
         el.theme = searchTheme;
@@ -182,6 +185,7 @@ function App() {
               authtorized={isLoggedIn}
               onDeleteNews={deleteFromSavedNews}
               savedNews={savedNews}
+              isLoading={isLoading}
             />
           </Route>
           <ProtectedRoute path='/saved-news' isLoggedIn={isLoggedIn}>

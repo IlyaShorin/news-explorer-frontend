@@ -20,13 +20,11 @@ const SavedNewsHeader = (props) => {
       };
     });
   };
-
   const sortedArray = getCountIds(array);
   const sortByCount = (array) => {
     return array.sort((a, b) => (a.sum < b.sum ? 1 : -1));
   };
   const finalArray = sortByCount(sortedArray);
-
   function string() {
     let result;
     if (finalArray.length > 0) {
