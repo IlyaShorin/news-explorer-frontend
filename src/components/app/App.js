@@ -108,6 +108,7 @@ function App() {
           savedNews.forEach((savednews) => {
             if (savednews.link === el.url) {
               el.saved = true;
+              el._id = savednews._id;
             }
           });
         });
@@ -128,6 +129,7 @@ function App() {
         savedNews.forEach((savednews) => {
           if (savednews.link === el.url) {
             el.saved = true;
+            el._id = savednews._id;
           }
         });
       });
@@ -136,16 +138,12 @@ function App() {
   }
   function saveNews({ theme, title, description, publishedAt, source, url, urlToImage }) {
     api.saveNews({ theme, title, description, publishedAt, source, url, urlToImage }).then((res) => {
-      const newNews = news.map((news) => {
-        if (news.url !== res.link) {
-          return news;
+      news.forEach((el) => {
+        if (el.url === res.link) {
+          el.saved = true;
+          el._id = res._id;
         }
-
-        return { ...news, saved: true, _id: res._id };
       });
-
-      setNews(newNews);
-
       setSavedNews([
         ...savedNews,
         { theme, title, description, publishedAt, source, url, urlToImage, _id: res._id, saved: true },
@@ -155,6 +153,11 @@ function App() {
   function deleteFromSavedNews(newsForDelete) {
     api.deleteArticle(newsForDelete._id).then((res) => {});
     setSavedNews(savedNews.filter((news) => news._id !== newsForDelete._id));
+    news.forEach((el) => {
+      if (newsForDelete._id === el._id) {
+        el.saved = false;
+      }
+    });
   }
 
   return (

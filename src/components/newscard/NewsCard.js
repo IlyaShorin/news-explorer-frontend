@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './NewsCard.css';
 
 const NewsCard = (props) => {
-  useEffect(() => {}, [props.news]);
   const [isHovered, setIsHovered] = useState(false);
   function handleHover() {
     setIsHovered(!isHovered);
@@ -10,7 +9,6 @@ const NewsCard = (props) => {
   function handleSave() {
     if (props.authtorized) {
       if (props.news.saved) {
-        console.log(props.news);
         props.onDeleteNews(props.news);
       } else if (props.saved) {
         props.onDeleteNews(props.news);
@@ -20,7 +18,7 @@ const NewsCard = (props) => {
     }
   }
 
-  const date = new Date(props.saved ? props.news.date : props.news.publishedAt);
+  const date = new Date(props.news.date ? props.news.date : props.news.publishedAt);
   const formattedDate = date
     .toLocaleDateString('ru-GB', {
       day: 'numeric',
@@ -46,7 +44,7 @@ const NewsCard = (props) => {
     <li className='news__item'>
       <img
         className='news__image'
-        src={props.saved ? props.news.image : props.news.urlToImage}
+        src={props.news.image ? props.news.image : props.news.urlToImage}
         alt='иллюстрация к новости'
       />
       <div>
@@ -65,13 +63,21 @@ const NewsCard = (props) => {
             onMouseLeave={handleHover}
             onClick={() => (props.authtorized ? handleSave() : null)}
           ></button>
-          {props.saved ? <p className='news__theme-text'>{props.news.keyword}</p> : ''}
+          {props.saved ? (
+            props.news.keyword ? (
+              <p className='news__theme-text'>{props.news.keyword}</p>
+            ) : (
+              <p className='news__theme-text'>{props.news.theme}</p>
+            )
+          ) : (
+            ''
+          )}
         </div>
-        <a className='news__link' href={props.saved ? props.news.link : props.news.url}>
+        <a className='news__link' href={props.news.link ? props.news.link : props.news.url}>
           <time className='news__date'>{formattedDate[0] + ' ' + formattedDate[1] + ', ' + formattedDate[2]}</time>
           <h3 className='news__title'>{props.news.title}</h3>
-          <p className='news__text'>{props.saved ? props.news.text : props.news.description}</p>
-          <p className='news__media'>{props.saved ? props.news.source : props.news.source.name}</p>
+          <p className='news__text'>{props.news.text ? props.news.text : props.news.description}</p>
+          <p className='news__media'>{props.news.source.name ? props.news.source.name : props.news.source}</p>
         </a>
       </div>
     </li>

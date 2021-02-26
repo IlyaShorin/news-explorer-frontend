@@ -7,12 +7,13 @@ export default function useClosePopup(ref, handler) {
         if (!ref.current || ref.current.contains(event.target)) {
           return;
         }
+        handler(event);
       } else if (event.constructor === KeyboardEvent) {
         if (event.keyCode !== 27) {
           return;
         }
+        handler(event);
       }
-      handler(event);
     };
 
     document.addEventListener('mousedown', listener);
