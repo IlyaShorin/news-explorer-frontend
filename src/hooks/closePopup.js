@@ -5,7 +5,6 @@ export default function useClosePopup(ref, handler) {
     const listener = (event) => {
       if (event.constructor === MouseEvent) {
         if (!ref.current || ref.current.contains(event.target)) {
-          console.log('clicked');
           return;
         }
       } else if (event.constructor === KeyboardEvent) {
