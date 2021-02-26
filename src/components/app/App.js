@@ -10,6 +10,7 @@ import newsApi from '../../utils/NewsApi';
 import api from '../../utils/MainApi';
 import { Switch, Route } from 'react-router-dom';
 import TooltipPopup from '../tooltippopup/TooltipPopup';
+import ProtectedRoute from '../../hoc/ProtecdetRoute';
 import './App.css';
 
 function App() {
@@ -183,7 +184,7 @@ function App() {
               savedNews={savedNews}
             />
           </Route>
-          <Route path='/saved-news'>
+          <ProtectedRoute path='/saved-news' isLoggedIn={isLoggedIn}>
             <Header themeDark={true} isLoggedIn={isLoggedIn} onLogout={handleLogout} userName={userName} />
             <SavedNews
               news={savedNews}
@@ -191,7 +192,7 @@ function App() {
               onDeleteNews={deleteFromSavedNews}
               authtorized={isLoggedIn}
             />
-          </Route>
+          </ProtectedRoute>
         </Switch>
         <Footer />
         <SigninPopup
