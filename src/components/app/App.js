@@ -188,7 +188,7 @@ function App() {
               isLoading={isLoading}
             />
           </Route>
-          <ProtectedRoute path='/saved-news' isLoggedIn={isLoggedIn}>
+          <ProtectedRoute path='/saved-news' isloggedIn={isLoggedIn}>
             <Header themeDark={true} isLoggedIn={isLoggedIn} onLogout={handleLogout} userName={userName} />
             <SavedNews
               news={savedNews}
