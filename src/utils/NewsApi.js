@@ -14,14 +14,12 @@ class Api {
   }
 
   findNews(theme) {
-    return fetch(`${this._baseUrl}q=${theme}&from=${weekBefore}&to=${today}&language=ru&pageSize=100`, {
-      headers: {
-        authorization: `6fe3b7eec28b4562a66b405d6e5f6bce`,
-      },
-    }).then((res) => res.json());
+    return fetch(
+      `${this._baseUrl}q=${theme}&from=${weekBefore}&to=${today}&language=ru&pageSize=100&apiKey=6fe3b7eec28b4562a66b405d6e5f6bce`
+    ).then((res) => res.json());
   }
 }
 const newsApi = new Api({
-  baseUrl: 'https://newsapi.org/v2/everything?',
+  baseUrl: 'https://nomoreparties.co/news/v2/everything?',
 });
 export default newsApi;
