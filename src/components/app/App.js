@@ -176,12 +176,13 @@ function App() {
     });
   }
   function deleteFromSavedNews(newsForDelete) {
-    api.deleteArticle(newsForDelete._id).then((res) => {});
-    setSavedNews(savedNews.filter((news) => news._id !== newsForDelete._id));
-    news.forEach((el) => {
-      if (newsForDelete._id === el._id) {
-        el.saved = false;
-      }
+    api.deleteArticle(newsForDelete._id).then((res) => {
+      setSavedNews(savedNews.filter((news) => news._id !== newsForDelete._id));
+      news.forEach((el) => {
+        if (newsForDelete._id === el._id) {
+          el.saved = false;
+        }
+      });
     });
   }
 
