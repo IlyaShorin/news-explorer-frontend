@@ -58,7 +58,16 @@ function App() {
   }
   useEffect(() => {
     if (localStorage.showedNews) {
+      console.log(news);
       setNews(JSON.parse(localStorage.getItem('showedNews')));
+      news.forEach((news) => {
+        savedNews.forEach((savedNews) => {
+          if (savedNews.link === news.link) {
+            news.saved = true;
+            news._id = savedNews._id;
+          }
+        });
+      });
       setSearchTheme(JSON.parse(localStorage.getItem('theme')));
       setShowNews(true);
     }
@@ -69,13 +78,14 @@ function App() {
   }, []);
 
   useEffect(() => {
+    console.log(news);
     localStorage.setItem('showedNews', JSON.stringify(news));
     localStorage.setItem('theme', JSON.stringify(searchTheme));
-  }, [news, searchTheme]);
+  }, [news, savedNews]);
 
   useEffect(() => {
     localStorage.setItem('savedNews', JSON.stringify(savedNews));
-  }, [savedNews]);
+  }, [news, savedNews]);
 
   function handleSigninPopupOpen() {
     setIsSigninPopupOpened(!isSigninPopupOpened);
