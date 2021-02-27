@@ -93,7 +93,7 @@ function App() {
     setIsTooltipOpened(false);
   }
   function handleSubmitRegister(obj) {
-    api
+    return api
       .newRegister(obj)
       .then((data) => {
         handleTooltipPopupOpen();
@@ -103,7 +103,7 @@ function App() {
       });
   }
   function handleSubmitLogin(obj) {
-    api
+    return api
       .newLogin(obj)
       .then((data) => {
         if (data.token) {

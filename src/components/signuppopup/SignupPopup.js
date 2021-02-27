@@ -30,11 +30,16 @@ const SignFormPopup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onSubmit({
-      email: inputValues.email.value,
-      name: inputValues.name.value,
-      password: inputValues.password.value,
-    });
+    setInputValues({ ...inputValues, isFormValid: false });
+    props
+      .onSubmit({
+        email: inputValues.email.value,
+        name: inputValues.name.value,
+        password: inputValues.password.value,
+      })
+      .then((res) => {
+        setInputValues({ ...inputValues, isFormValid: true });
+      });
   };
   return (
     <>

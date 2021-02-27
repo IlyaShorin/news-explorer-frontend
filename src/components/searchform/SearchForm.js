@@ -3,6 +3,7 @@ import './SearchForm.css';
 
 const SearchForm = (props) => {
   const [input, setInput] = useState({ theme: '' });
+  const [isDisabled, setIsDisabled] = useState(false);
   function handleInputChange(e) {
     setInput({
       ...input,
@@ -11,7 +12,10 @@ const SearchForm = (props) => {
   }
   function handleSubmit(e) {
     e.preventDefault(e);
-    props.onSubmit(input.theme);
+    setIsDisabled(true);
+    props.onSubmit(input.theme).then((res) => {
+      setIsDisabled(false);
+    });
   }
   return (
     <div className='search-form'>
@@ -30,7 +34,7 @@ const SearchForm = (props) => {
           required
           onChange={handleInputChange}
         />
-        <button className='search-form__button' type='submit'>
+        <button className='search-form__button' type='submit' disabled={isDisabled}>
           Искать
         </button>
       </form>
