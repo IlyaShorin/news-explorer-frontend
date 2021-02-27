@@ -12,7 +12,7 @@ const Main = (props) => {
       <SearchForm onSubmit={props.onSearchNews} />
       {props.isLoading ? (
         <Preloader />
-      ) : (
+      ) : props.showNews ? (
         <main className={props.showNews ? `main main_visible` : `main`}>
           <div className='main__container'>
             <div className='main__title-container'>
@@ -23,6 +23,7 @@ const Main = (props) => {
               onSave={props.onSaveNews}
               authtorized={props.authtorized}
               onDeleteNews={props.onDeleteNews}
+              openModal={props.openModal}
             />
           </div>
           {props.news.length === 99 ? (
@@ -35,6 +36,8 @@ const Main = (props) => {
             </div>
           )}
         </main>
+      ) : (
+        ''
       )}
       <About />
     </>
