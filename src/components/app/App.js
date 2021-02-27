@@ -207,6 +207,7 @@ function App() {
               onDeleteNews={deleteFromSavedNews}
               savedNews={savedNews}
               isLoading={isLoading}
+              openModal={handleSigninPopupOpen}
             />
           </Route>
           <ProtectedRoute path='/saved-news' isloggedIn={isLoggedIn}>

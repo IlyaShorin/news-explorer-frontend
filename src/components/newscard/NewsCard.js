@@ -61,7 +61,7 @@ const NewsCard = (props) => {
             }
             onMouseEnter={handleHover}
             onMouseLeave={handleHover}
-            onClick={() => (props.authtorized ? handleSave() : props.openModal())}
+            onClick={props.authtorized ? handleSave : props.openModal}
           ></button>
           {props.saved ? (
             props.news.keyword ? (
