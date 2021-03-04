@@ -45,7 +45,7 @@ const Navigation = (props) => {
           className={`navigation__button navigation__button${theme} navigation__button_logged-in`}
           onClick={props.onLogout}
         >
-          Илья
+          {props.userName}
           {props.themeDark ? (
             <img src={logoutImgBlack} className='logout-button' alt='Выйти'></img>
           ) : (

@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+Сайт находится вот здесь [Сайт](https://ilyashorin-news-explorer.students.nomoredomains.icu/).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Апи находится вот здесь [api](https://api.ilyashorin-news-explorer.students.nomoredomains.icu)
 
 ## Available Scripts
 

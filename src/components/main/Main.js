@@ -1,30 +1,44 @@
-import React, { useState } from 'react';
+import React from 'react';
 import About from '../about/About';
 import NewsCardList from '../newscardlist/NewsCardList';
 import SearchForm from '../searchform/SearchForm';
+import Preloader from '../preloader/Preloader';
 
 import './Main.css';
 
 const Main = (props) => {
-  const [isNewsListShowed, setIsNewsListShowed] = useState(false);
-  const handleShow = (e) => {
-    e.preventDefault();
-    setIsNewsListShowed(!isNewsListShowed);
-  };
   return (
     <>
-      <SearchForm onSubmit={handleShow} newsList={isNewsListShowed} />
-      <main className={isNewsListShowed ? `main main_visible` : `main`}>
-        <div className='main__container'>
-          <div className='main__title-container'>
-            <p className='main__title'>Результаты поиска</p>
+      <SearchForm onSubmit={props.onSearchNews} />
+      {props.isLoading ? (
+        <Preloader />
+      ) : props.showNews ? (
+        <main className={props.showNews ? `main main_visible` : `main`}>
+          <div className='main__container'>
+            <div className='main__title-container'>
+              <p className='main__title'>Результаты поиска</p>
+            </div>
+            <NewsCardList
+              news={props.news}
+              onSave={props.onSaveNews}
+              authtorized={props.authtorized}
+              onDeleteNews={props.onDeleteNews}
+              openModal={props.openModal}
+            />
           </div>
-          <NewsCardList />
-        </div>
-        <div className='main__button-container'>
-          <button className='main__button'>Показать еще</button>
-        </div>
-      </main>
+          {props.news.length === 99 ? (
+            ''
+          ) : (
+            <div className='main__button-container'>
+              <button className='main__button' onClick={props.onShowMore}>
+                Показать еще
+              </button>
+            </div>
+          )}
+        </main>
+      ) : (
+        ''
+      )}
       <About />
     </>
   );
